@@ -1,0 +1,46 @@
+.DS_Store
+Thumbs.db
+
+application/cache/*
+!application/cache/index.html
+
+application/logs/*
+!application/logs/index.html
+
+!application/*/.htaccess
+
+composer.lock
+tests/mocks/database/ci_test.sqlite
+
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+/vendor/
+
+# Agent / AI files
+.agents/
+AGENTS.md
+SKILL.md
+
+# Project docs (not for public repo)
+design.md
+prd.md
+session-ses_0a55.md
+
+# User uploads
+assets/uploads/*
+
+# IDE Files
+/nbproject/
+.idea/*
+.vscode/
+
+## Sublime Text cache files
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+/tests/tests/
+/tests/results/
