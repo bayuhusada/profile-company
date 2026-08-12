@@ -227,7 +227,140 @@ class Berita_model extends CI_Model {
 
 ---
 
-## 5. Daftar Fitur & Controller yang Ada
+## 5. STUDI KASUS — Analisis Lengkap `frontend/guru.php`
+
+Contoh nyata paling kaya di project ini. Memperlihatkan cara controller → view bekerja sama:
+gabungan pagination, tab filter, pola fallback `??`, dan pencarian JavaScript. Baca sambil buka file `application/views/frontend/guru.php`.
+
+### 5a. Dari mana `$guru` & `$guru_all` berasal?
+
+Di controller `Home.php`:
+```php
+$data['guru']     = $this->guru_model->get_paginated(8, $offset);  // 8 guru halaman ini
+$data['guru_all'] = $this->guru_model->get_all();                  // SEMUA guru
+$data['pagination'] = [ 'page' => $page, 'per_page' => 8, 'total_pages' => ..., ... ];
+$this->load->view('frontend/guru', $data);
+```
+Setelah `extract($data)` di dalam view, tersedia: `$guru` (8 data), `$guru_all`, `$pagination`.
+
+> **Kenapa dua variabel?** Tab "Semua" pakai 8 data per halaman (supaya pagination jalan), sedangkan tab "Guru"/"Staff" butuh SEMUA data supaya filter tab tetap lengkap di halaman mana pun.
+
+### 5b. Blok persiapan data (baris 27-33)
+
+```php
+$guru_list  = $guru ?? [];                                                  // 1
+$guru_all   = $guru_all ?? $guru_list;                                      // 2
+$guru_guru  = array_filter($guru_all, function($g) {                        // 3
+  return stripos($g->jabatan ?? '', 'guru') !== false || empty($g->jabatan);
+});
+$staff_list = array_filter($guru_all, function($g) {                        // 4
+  return $g->jabatan && stripos($g->jabatan, 'guru') === false;
+});
+$pp = $pagination ?? ['page' => 1, 'per_page' => 8, 'total_pages' => 1, 'base' => site_url('guru')]; // 5
+```
+
+| Baris | Fungsi |
+|-------|--------|
+| **1** | `$guru_list = $guru ?? []` — salin `$guru`, tapi jika null/tidak terkirim → `[]` (anti-error "undefined variable"). |
+| **2** | `$guru_all ?? $guru_list` — jika `$guru_all` tidak dikirim, pakai `$guru_list` sebagai cadangan. |
+| **3** | `array_filter` = saring array dengan kondisi. Kondisi: jabatan mengandung kata "guru" (`stripos(...,'guru') !== false`) **atau** jabatan kosong (`empty`) → masuk tab **Guru**. |
+| **4** | Kebalikannya: jabatan ADA dan TIDAK mengandung "guru" → masuk tab **Staff**. |
+| **5** | `$pagination` dengan default jika tidak dikirim. |
+
+**Catatan penting:**
+- `stripos` = cari posisi teks tetap namun TIDAK peduli huruf besar/kecil (mencocokkan "Guru", "guru", "GURU" semua).
+- `??` = *null coalescing operator*: "pakai kiri kalau bukan null, kalau null pakai kanan".
+- `array_filter` MENYIMPAN index asli (mis. hasil [5, 8, 12]) → perlu dirapikan dengan `array_values()` sebelum `foreach` (lihat 5d).
+
+### 5c. `foreach` + escape + base_url (baris 36-42)
+
+```php
+<?php if ($guru_list): foreach ($guru_list as $i => $g): ?>
+  <!-- $i = urutan (0,1,2..) | $g = objek satu guru -->
+  <img src="<?php echo $g->foto ? base_url($g->foto)
+    : 'https://placehold.co/200x200/1e3a5f/ffffff?text=' . urlencode(substr($g->nama, 0, 1)); ?>">
+  <h3><?php echo $g->nama; ?></h3>
+  <p class="jabatan"><?php echo $g->jabatan ?? 'Guru'; ?></p>
+  <p class="mapel"><?php echo $g->mapel ?? '-'; ?></p>
+<?php endforeach; else: ?>
+  <p>Belum ada data guru.</p>
+<?php endif; ?>
+```
+
+| Bagian | Fungsi |
+|--------|--------|
+| `if/else/endif` | List kosong → tampilkan pesan, bukan foreach error. |
+| `as $i => $g` | `$i` = index perulangan (dipakai untuk `transition-delay` agar kartu muncul bertahap), `$g` = objek guru saat ini. |
+| `$g->foto ? A : B` | **Ternary**: jika punya foto pakai A, jika tidak pakai B (placeholder dengan inisial nama). |
+| `base_url($g->foto)` | Ubah path relatif (`assets/uploads/x.jpg`) jadi URL penuh (`http://host/.../x.jpg`). |
+| `substr($g->nama, 0, 1)` | Ambil huruf pertama nama → jadi inisial di placeholder. |
+| `urlencode(...)` | Amankan inisial agar aman disisipkan di URL. |
+| `$g->jabatan ?? 'Guru'` / `$g->mapel ?? '-'` | Tampilkan nilai default jika kolom kosong. |
+| `<?php echo ... ?>` | Metode escape standar di view (bukan `<?=` supaya kompatibel semua PHP). |
+
+### 5d. `array_values()` — kenapa tab Guru/Staff butuh ini?
+
+```php
+$guru_guru_array = array_values($guru_guru);   // hasil array_filter
+```
+`array_filter` mempertahankan index asli array (0, 3, 5, 7 dst). `array_values()` **mereset index jadi 0,1,2,3...** supaya `$i` pada foreach berurutan dan `$i * 0.05` (delay animasi) tetap terhitung benar.
+
+### 5e. Pagination (baris 62-68)
+
+```php
+<?php if ($pp['total_pages'] > 1): ?>
+  <?php for ($p = 1; $p <= $pp['total_pages']; $p++): ?>
+    <a href="<?php echo $pp['base'] . '?page=' . $p; ?>"
+       class="<?php echo $p == $pp['page'] ? 'active' : ''; ?>"><?php echo $p; ?></a>
+  <?php endfor; ?>
+<?php endif; ?>
+```
+
+| Bagian | Fungsi |
+|--------|--------|
+| `if total_pages > 1` | Pagination hanya muncul kalau datanya lebih dari 1 halaman. |
+| `for` loop | Cetak link `?page=1`, `?page=2`, dst. dari controller `$pp['base']` (yaitu `site_url('guru')`). |
+| Ternary `active` | Halaman yang sedang dibuka mendapat class `active` (highlight). |
+| Alur | Klik `?page=2` → `Home::guru()` baca `$_GET['page']` → hitung offset → ambil 8 guru berikutnya. |
+
+### 5f. Pencarian JavaScript `filterGuru()` (baris 88-97)
+
+```javascript
+function filterGuru() {
+  var input  = document.getElementById('guruSearch');          // ambil kotak pencarian
+  var filter = input.value.toUpperCase();                      // kata kunci → huruf besar
+  var cards  = document.querySelectorAll('.guru-card');        // semua kartu guru
+  for (var i = 0; i < cards.length; i++) {
+    var text = cards[i].textContent || cards[i].innerText;     // seluruh teks kartu
+    cards[i].style.display = text.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
+  }
+}
+```
+
+| Bagian | Fungsi |
+|--------|--------|
+| `onkeyup="filterGuru()"` | Dipicu TANPA perlu tombol, setiap kali user mengetik. |
+| `.toUpperCase()` | Samakan huruf besar/kecil supaya "guru"/"Guru"/"GURU" semua cocok. |
+| `textContent/innerText` | Kumpulkan semua teks kartu (nama + jabatan + mapel). |
+| `indexOf(filter) > -1` | `-1` = tidak ketemu. `> -1` berarti katanya ADA di teks kartu. |
+| Ternary display | Ketemu → `''` (tampil), tidak → `'none'` (sembunyi). |
+
+> **Pelajaran**: pencarian frontend ini murni JavaScript di sisi browser — tidak perlu query ulang ke server. Berguna untuk data yang jumlahnya sedikit; untuk data ribuan lebih tepat pakai pencarian di model (`LIKE`).
+
+### 5g. Alur lengkap satu halaman guru
+
+```
+User buka /guru
+  → controller: kirim $guru (8/halaman) + $guru_all + $pagination
+  → view: siapkan $guru_list, $guru_guru, $staff_list, $pp
+  → 3 tab (Semua / Guru / Staff) masing-masing foreach kartu
+  → pagination muncul jika total > 1 halaman
+  → JS filterGuru() menyaring kartu secara live tanpa reload
+```
+
+---
+
+## 6. Daftar Fitur & Controller yang Ada
 
 | Fitur | Controller | Model | Tabel |
 |-------|-----------|-------|-------|
@@ -249,7 +382,7 @@ class Berita_model extends CI_Model {
 
 ---
 
-## 6. CARA MENAMBAH FITUR BARU (langkah wajib)
+## 7. CARA MENAMBAH FITUR BARU (langkah wajib)
 
 Bayangkan diminta: *"Tambahkan halaman **Album Prestasi**"* atau *"Tambah CRUD **Lowongan Kerja**"*. Ikuti 8 langkah ini:
 
@@ -324,7 +457,7 @@ if ($_FILES['foto']['name']) $this->upload->do_upload('foto');
 
 ---
 
-## 7. Cheat Sheet Konvensi (tanya jawab live coding)
+## 8. Cheat Sheet Konvensi (tanya jawab live coding)
 
 **Menampilkan halaman frontend?**
 ```php
