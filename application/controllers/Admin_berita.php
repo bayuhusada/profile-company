@@ -43,6 +43,11 @@ class Admin_berita extends CI_Controller {
           'status' => $this->input->post('status') ?: 'draft',
         ];
 
+        $published = $this->input->post('published_at');
+        if ($published) {
+          $insert['created_at'] = date('Y-m-d H:i:s', strtotime($published));
+        }
+
         $config['upload_path'] = './assets/uploads/';
         $config['allowed_types'] = 'jpg|jpeg|png|webp';
         $config['max_size'] = 5120;
@@ -87,6 +92,11 @@ class Admin_berita extends CI_Controller {
           'isi' => $this->input->post('isi'),
           'status' => $this->input->post('status') ?: 'draft',
         ];
+
+        $published = $this->input->post('published_at');
+        if ($published) {
+          $update['created_at'] = date('Y-m-d H:i:s', strtotime($published));
+        }
 
         $config['upload_path'] = './assets/uploads/';
         $config['allowed_types'] = 'jpg|jpeg|png|webp';

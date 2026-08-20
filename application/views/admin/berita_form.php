@@ -39,6 +39,12 @@
               </select>
             </div>
             <div class="mb-3">
+              <label class="form-label">Tanggal & Jam Publikasi</label>
+              <input type="datetime-local" name="published_at" class="form-control"
+                value="<?php echo set_value('published_at', isset($row) && $row->created_at ? date('Y-m-d\TH:i', strtotime($row->created_at)) : date('Y-m-d\TH:i')); ?>">
+              <div class="form-text">Kosongkan untuk memakai waktu saat ini.</div>
+            </div>
+            <div class="mb-3">
               <label class="form-label">Thumbnail</label>
               <?php if (isset($row) && !empty($row->thumbnail)): ?>
                 <div class="mb-2"><img src="<?php echo base_url($row->thumbnail); ?>" style="max-height:120px"></div>
