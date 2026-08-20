@@ -64,7 +64,7 @@
 
       <div class="tab-panel" data-panel="sambutan">
         <div style="max-width:var(--content-narrow)">
-          <img src="https://placehold.co/200x250/1e3a5f/ffffff?text=Kepsek" alt="Kepala Sekolah" style="width:200px;margin-bottom:var(--space-sm)">
+          <img src="<?php echo !empty($foto_situs['kepsek']->foto) ? base_url($foto_situs['kepsek']->foto) : 'https://placehold.co/200x250/1e3a5f/ffffff?text=Kepsek'; ?>" alt="Kepala Sekolah" style="width:200px;margin-bottom:var(--space-sm)">
           <h2 style="margin-bottom:var(--space-xs)">Sambutan Kepala Sekolah</h2>
           <p><?php echo nl2br($profil->sambutan ?? 'Assalamualaikum warahmatullahi wabarakatuh. Puji syukur ke hadirat Allah SWT atas segala rahmat dan karunia-Nya sehingga website SMP Negeri Sadi dapat hadir untuk memberikan informasi yang lengkap dan transparan kepada masyarakat. Sebagai Kepala Sekolah, saya mengajak seluruh siswa, guru, dan staf untuk bersama-sama membangun budaya belajar yang positif dan produktif. Kami berkomitmen untuk memberikan pendidikan terbaik bagi generasi penerus bangsa.'); ?></p>
           <p style="margin-top:var(--space-md);margin-bottom:2px;font-weight:600;color:var(--ink)">Kepala Sekolah,</p>

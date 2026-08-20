@@ -9,6 +9,9 @@ class Dashboard extends CI_Controller {
     if (!$this->session->userdata('logged_in')) {
       redirect('auth/login');
     }
+    if ($this->session->userdata('admin_role') === 'kepsek') {
+      redirect('kepsek');
+    }
     $this->load->model('berita_model');
     $this->load->model('guru_model');
     $this->load->model('prestasi_model');

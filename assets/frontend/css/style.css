@@ -248,6 +248,55 @@ p {
   z-index: 0;
 }
 
+.hero-slides,
+.hero-slide {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+  z-index: 0;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero-dots {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xxs);
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.hero-dot:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.hero-dot.active {
+  background: var(--accent-gold);
+  width: 24px;
+}
+
 .hero-overlay {
   position: absolute;
   inset: 0;

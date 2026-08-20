@@ -14,6 +14,15 @@
 	  <script src="<?php echo base_url('assets/sneat')?>/assets/vendor/libs/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="<?php echo base_url('assets/sneat')?>/assets/vendor/libs/data-tables/datatables.min.js"></script>
 <script src="<?php echo base_url('assets/sneat')?>/assets/vendor/libs/data-tables/data_tables.select.min.js"></script>
+<script>
+$(function() {
+  $('.datatable').DataTable({
+    pageLength: 10,
+    lengthMenu: [5, 10, 25, 50],
+    language: { search: "Cari:", lengthMenu: "Tampilkan _MENU_ baris", info: "Menampilkan _START_–_END_ dari _TOTAL_", paginate: { previous: "‹", next: "›" }, emptyTable: "Tidak ada data" }
+  });
+});
+</script>
 
 
 

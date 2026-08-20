@@ -11,6 +11,8 @@ class Home extends CI_Controller {
     $this->load->model('profil_model');
     $this->load->model('kontak_model');
     $this->load->model('pengaturan_model');
+    $this->load->model('foto_situs_model');
+    $this->load->model('slider_model');
 
     $data['title'] = 'Beranda';
     $data['active_nav'] = 'beranda';
@@ -20,6 +22,8 @@ class Home extends CI_Controller {
     $data['galeri'] = $this->galeri_model->get_all();
     $data['kontak'] = $this->kontak_model->get();
     $data['pengaturan'] = $this->pengaturan_model->get();
+    $data['foto_situs'] = $this->foto_situs_model->get_all_assoc();
+    $data['slider'] = $this->slider_model->get_active();
     $this->load->view('frontend/template/header', $data);
     $this->load->view('frontend/home', $data);
     $this->load->view('frontend/template/footer');
@@ -28,9 +32,11 @@ class Home extends CI_Controller {
   public function tentang()
   {
     $this->load->model('profil_model');
+    $this->load->model('foto_situs_model');
     $data['title'] = 'Tentang Kami';
     $data['active_nav'] = 'tentang';
     $data['profil'] = $this->profil_model->get();
+    $data['foto_situs'] = $this->foto_situs_model->get_all_assoc();
     $this->load->view('frontend/template/header', $data);
     $this->load->view('frontend/tentang', $data);
     $this->load->view('frontend/template/footer');

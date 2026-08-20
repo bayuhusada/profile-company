@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo base_url('assets/frontend/css/style.css'); ?>">
-  <link rel="shortcut icon" href="<?php echo base_url('assets/sneat/assets/img/favicon/favicon.ico'); ?>" type="image/x-icon">
+  <link rel="stylesheet" href="<?php echo base_url('assets/frontend/css/style.css?v=2'); ?>">
+  <link rel="shortcut icon" href="<?php echo base_url('assets/frontend/img/logo-smp.png'); ?>" type="image/png">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
   <nav class="nav">
     <div class="container">
       <a href="<?php echo site_url(); ?>" class="nav-logo">
-        <img src="<?php echo base_url('assets/sneat/assets/img/favicon/favicon.ico'); ?>" alt="SMP Negeri Sadi">
+        <img src="<?php echo base_url('assets/frontend/img/logo-smp.png'); ?>" alt="SMP Negeri Sadi">
         <span>SMP<br>Negeri Sadi</span>
       </a>
 

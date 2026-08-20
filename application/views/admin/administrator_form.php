@@ -24,6 +24,14 @@
                 <input type="password" name="password" class="form-control" <?php echo isset($row) ? '' : 'required'; ?> minlength="6">
               </div>
             </div>
+            <div class="mb-3">
+              <label class="form-label">Role</label>
+              <select name="role" class="form-select">
+                <option value="admin" <?php echo set_select('role', 'admin', (isset($row) && $row->role == 'admin')); ?>>Administrator</option>
+                <option value="kepsek" <?php echo set_select('role', 'kepsek', (isset($row) && $row->role == 'kepsek')); ?>>Kepala Sekolah</option>
+              </select>
+              <div class="form-text">Kepala Sekolah hanya bisa melihat data & export PDF, tanpa akses CRUD.</div>
+            </div>
           </div>
         </div>
       </div>

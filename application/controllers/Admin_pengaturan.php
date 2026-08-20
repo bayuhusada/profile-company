@@ -6,8 +6,9 @@ class Admin_pengaturan extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
-    if (!$this->session->userdata('logged_in')) redirect('auth/login');
+    if (!$this->session->userdata('logged_in') || $this->session->userdata('admin_role') !== 'admin') redirect('auth/login');
     $this->load->model('pengaturan_model');
+    $this->load->model('foto_situs_model');
     $this->load->library('form_validation');
   }
 
@@ -16,6 +17,7 @@ class Admin_pengaturan extends CI_Controller {
     $data['title'] = 'Pengaturan Website';
     $data['active_menu'] = 'pengaturan';
     $data['setting'] = $this->pengaturan_model->get();
+    $data['foto_situs'] = $this->foto_situs_model->get_all_assoc();
 
     if ($this->input->method() === 'post') {
       $update = [
@@ -29,6 +31,20 @@ class Admin_pengaturan extends CI_Controller {
       ];
 
       $this->pengaturan_model->update($update);
+
+      $config['upload_path'] = './assets/uploads/';
+      $config['allowed_types'] = 'jpg|jpeg|png|webp';
+      $config['max_size'] = 5120;
+      $this->load->library('upload', $config);
+
+      foreach (['gedung', 'kepsek', 'kegiatan'] as $kunci) {
+        if (!empty($_FILES[$kunci]['name'])) {
+          if ($this->upload->do_upload($kunci)) {
+            $this->foto_situs_model->update($kunci, 'assets/uploads/' . $this->upload->data('file_name'));
+          }
+        }
+      }
+
       $this->session->set_flashdata('success', 'Pengaturan berhasil diperbarui.');
       redirect('admin_pengaturan');
     }

@@ -65,6 +65,6 @@
     <img src="" alt="">
   </div>
 
-  <script src="<?php echo base_url('assets/frontend/js/main.js?v=2'); ?>"></script>
+  <script src="<?php echo base_url('assets/frontend/js/main.js?v=3'); ?>"></script>
 </body>
 </html>

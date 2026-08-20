@@ -168,4 +168,55 @@
     requestAnimationFrame(step);
   }
 
+  /* ---- Hero slider ---- */
+  var slides = document.querySelectorAll('.hero-slide');
+  var dots = document.querySelectorAll('.hero-dot');
+  var heroSubtitle = document.querySelector('.hero-subtitle');
+  var heroTagline = document.querySelector('.hero-tagline');
+  var currentSlide = 0;
+  var slideTimer = null;
+  var SLIDE_INTERVAL = 6000;
+
+  function goToSlide(index) {
+    if (slides.length === 0) return;
+    currentSlide = (index + slides.length) % slides.length;
+
+    slides.forEach(function (s, i) {
+      s.classList.toggle('active', i === currentSlide);
+    });
+    dots.forEach(function (d, i) {
+      d.classList.toggle('active', i === currentSlide);
+    });
+
+    var slide = slides[currentSlide];
+    if (heroSubtitle && slide.getAttribute('data-judul')) {
+      heroSubtitle.textContent = slide.getAttribute('data-judul');
+    }
+    if (heroTagline && slide.getAttribute('data-deskripsi')) {
+      heroTagline.textContent = slide.getAttribute('data-deskripsi');
+    }
+  }
+
+  function nextSlide() {
+    goToSlide(currentSlide + 1);
+  }
+
+  function startSlider() {
+    if (slides.length > 1) {
+      slideTimer = setInterval(nextSlide, SLIDE_INTERVAL);
+    }
+  }
+
+  if (slides.length > 0) {
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        goToSlide(i);
+        clearInterval(slideTimer);
+        startSlider();
+      });
+    });
+
+    startSlider();
+  }
+
 })();

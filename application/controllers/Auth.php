@@ -13,6 +13,9 @@ class Auth extends CI_Controller {
   public function login()
   {
     if ($this->session->userdata('logged_in')) {
+      if ($this->session->userdata('admin_role') === 'kepsek') {
+        redirect('kepsek');
+      }
       redirect('dashboard');
     }
 
@@ -20,7 +23,19 @@ class Auth extends CI_Controller {
       $this->admin_model->insert([
         'nama' => 'Administrator',
         'username' => 'admin',
+        'role' => 'admin',
         'password' => password_hash('admin123', PASSWORD_DEFAULT),
+        'foto' => null,
+      ]);
+    }
+
+    $kepsek_exists = $this->db->where('role', 'kepsek')->count_all_results('admin');
+    if ($kepsek_exists == 0) {
+      $this->admin_model->insert([
+        'nama' => 'Kepala Sekolah',
+        'username' => 'kepsek',
+        'role' => 'kepsek',
+        'password' => password_hash('kepsek123', PASSWORD_DEFAULT),
         'foto' => null,
       ]);
     }
@@ -43,9 +58,13 @@ class Auth extends CI_Controller {
             'admin_id' => $admin->id,
             'admin_nama' => $admin->nama,
             'admin_username' => $admin->username,
+            'admin_role' => $admin->role,
             'admin_foto' => $admin->foto,
           ];
           $this->session->set_userdata($session);
+          if ($admin->role === 'kepsek') {
+            redirect('kepsek');
+          }
           redirect('dashboard');
         } else {
           $this->session->set_flashdata('error', 'Username atau password salah.');

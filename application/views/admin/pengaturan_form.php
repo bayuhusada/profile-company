@@ -5,7 +5,7 @@
     <div class="alert alert-success"><?php echo $this->session->flashdata('success'); ?></div>
   <?php endif; ?>
 
-  <?php echo form_open('admin_pengaturan'); ?>
+  <?php echo form_open_multipart('admin_pengaturan'); ?>
     <div class="card">
       <div class="card-body">
         <div class="mb-3">
@@ -40,6 +40,29 @@
             <input type="number" name="tahun_berdiri" class="form-control" value="<?php echo set_value('tahun_berdiri', $setting->tahun_berdiri ?? 2010); ?>">
           </div>
         </div>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="mb-3">Gambar Halaman</h5>
+        <?php
+          $slots = [
+            'gedung' => 'Foto Gedung Sekolah (Hero Beranda)',
+            'kepsek' => 'Foto Kepala Sekolah (Sambutan)',
+            'kegiatan' => 'Foto Kegiatan Sekolah (Profil Singkat)',
+          ];
+          foreach ($slots as $kunci => $label):
+        ?>
+        <div class="mb-3">
+          <label class="form-label"><?php echo $label; ?></label>
+          <?php if (!empty($foto_situs[$kunci]->foto)): ?>
+            <div class="mb-2"><img src="<?php echo base_url($foto_situs[$kunci]->foto); ?>" style="max-height:100px;border:1px solid #ddd;border-radius:6px"></div>
+          <?php endif; ?>
+          <input type="file" name="<?php echo $kunci; ?>" class="form-control" accept="image/*">
+        </div>
+        <?php endforeach; ?>
         <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
     </div>

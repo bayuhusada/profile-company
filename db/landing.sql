@@ -31,8 +31,12 @@ CREATE TABLE `admin` (
   `id` int NOT NULL,
   `nama` varchar(100) NOT NULL,
   `username` varchar(50) NOT NULL,
+  `role` enum('admin','kepsek') NOT NULL DEFAULT 'admin',
   `password` varchar(255) NOT NULL,
   `foto` varchar(255) DEFAULT NULL,
+  `nip` varchar(50) DEFAULT NULL,
+  `pangkat` varchar(100) DEFAULT NULL,
+  `ttd` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -40,8 +44,8 @@ CREATE TABLE `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`id`, `nama`, `username`, `password`, `foto`, `created_at`) VALUES
-(1, 'Administrator', 'admin', '$2y$10$kJoa3ukKrhdCTiB2ShzKgeLhyL.TsxfBOwUPiCF5Cl9K2ESM9mz2.', NULL, '2026-07-13 16:56:29');
+INSERT INTO `admin` (`id`, `nama`, `username`, `role`, `password`, `foto`, `nip`, `pangkat`, `ttd`, `created_at`) VALUES
+(1, 'Administrator', 'admin', 'admin', '$2y$10$kJoa3ukKrhdCTiB2ShzKgeLhyL.TsxfBOwUPiCF5Cl9K2ESM9mz2.', NULL, NULL, NULL, NULL, '2026-07-13 16:56:29');
 
 -- --------------------------------------------------------
 
@@ -359,6 +363,76 @@ CREATE TABLE `profil` (
 
 INSERT INTO `profil` (`id`, `nama_sekolah`, `logo`, `favicon`, `alamat`, `email`, `telepon`, `maps`, `visi`, `misi`, `sejarah`, `sambutan`) VALUES
 (1, 'SMP Negeri sadi', NULL, NULL, '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `foto_situs`
+--
+
+CREATE TABLE `foto_situs` (
+  `id` int NOT NULL,
+  `kunci` varchar(50) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `foto_situs`
+--
+
+INSERT INTO `foto_situs` (`id`, `kunci`, `foto`) VALUES
+(1, 'gedung', NULL),
+(2, 'kepsek', NULL),
+(3, 'kegiatan', NULL);
+
+--
+-- Indexes for table `foto_situs`
+--
+ALTER TABLE `foto_situs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kunci` (`kunci`);
+
+--
+-- AUTO_INCREMENT for table `foto_situs`
+--
+ALTER TABLE `foto_situs`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slider`
+--
+
+CREATE TABLE `slider` (
+  `id` int NOT NULL,
+  `judul` varchar(150) DEFAULT NULL,
+  `deskripsi` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `urutan` int DEFAULT '0',
+  `status` tinyint DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `judul`, `deskripsi`, `foto`, `urutan`, `status`) VALUES
+(1, 'SMP NEGERI Sadi', 'Sekolah Berprestasi', NULL, 1, 1),
+(2, 'Selamat Datang', 'Mencetak Generasi Berprestasi', NULL, 2, 1),
+(3, 'PPDB Tahun Ini', 'Daftarkan Putra-Putri Anda', NULL, 3, 1);
+
+--
+-- Indexes for table `slider`
+--
+ALTER TABLE `slider`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `slider`
+--
+ALTER TABLE `slider`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 -- --------------------------------------------------------
 

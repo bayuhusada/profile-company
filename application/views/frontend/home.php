@@ -1,19 +1,38 @@
 <!-- Hero -->
 <section class="hero">
-  <img src="https://placehold.co/1920x1080/1e3a5f/ffffff?text=Foto+Gedung+Sekolah" alt="Gedung SMP Negeri Sadi" class="hero-bg">
+  <div class="hero-slides">
+    <?php if ($slider): ?>
+      <?php foreach ($slider as $i => $s): ?>
+      <div class="hero-slide<?php echo $i === 0 ? ' active' : ''; ?>" data-index="<?php echo $i; ?>" data-judul="<?php echo htmlspecialchars($s->judul ?? ''); ?>" data-deskripsi="<?php echo htmlspecialchars($s->deskripsi ?? ''); ?>">
+        <img src="<?php echo !empty($s->foto) ? base_url($s->foto) : 'https://placehold.co/1920x1080/1e3a5f/ffffff?text=' . urlencode($s->judul ?? 'Slide'); ?>" alt="<?php echo $s->judul ?? 'Slide'; ?>" class="hero-bg">
+      </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <div class="hero-slide active">
+        <img src="<?php echo !empty($foto_situs['gedung']->foto) ? base_url($foto_situs['gedung']->foto) : 'https://placehold.co/1920x1080/1e3a5f/ffffff?text=Foto+Gedung+Sekolah'; ?>" alt="Gedung SMP Negeri Sadi" class="hero-bg">
+      </div>
+    <?php endif; ?>
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="container">
-      <p class="hero-subtitle fade-in">Sekolah Berprestasi</p>
+      <p class="hero-subtitle fade-in"><?php echo !empty($slider[0]->judul) ? $slider[0]->judul : 'Sekolah Berprestasi'; ?></p>
       <h1 class="hero-title fade-in">SMP <span class="gold">NEGERI</span> Sadi</h1>
       <div class="hero-divider"></div>
-      <p class="hero-tagline fade-in">Mencetak Generasi Berprestasi, Berkarakter, dan Berakhlak Mulia</p>
+      <p class="hero-tagline fade-in"><?php echo !empty($slider[0]->deskripsi) ? $slider[0]->deskripsi : 'Mencetak Generasi Berprestasi, Berkarakter, dan Berakhlak Mulia'; ?></p>
       <div class="fade-in" style="display:flex;gap:var(--space-xs);flex-wrap:wrap">
         <a href="<?php echo site_url('tentang'); ?>" class="btn btn-primary">Jelajahi Profil</a>
         <a href="<?php echo site_url('ppdb'); ?>" class="btn btn-outline">Informasi PPDB</a>
       </div>
     </div>
   </div>
+  <?php if (count($slider) > 1): ?>
+  <div class="hero-dots">
+    <?php foreach ($slider as $i => $s): ?>
+      <button type="button" class="hero-dot<?php echo $i === 0 ? ' active' : ''; ?>" data-slide="<?php echo $i; ?>" aria-label="Slide <?php echo $i + 1; ?>"></button>
+    <?php endforeach; ?>
+  </div>
+  <?php endif; ?>
 </section>
 
 <!-- Sambutan -->
@@ -29,7 +48,7 @@
         <a href="<?php echo site_url('tentang'); ?>" class="btn btn-outline-dark" style="margin-top:var(--space-xs)">Baca Selengkapnya</a>
       </div>
       <div class="fade-in-up">
-        <img src="https://placehold.co/600x750/1e3a5f/ffffff?text=Foto+Kepala+Sekolah" alt="Kepala Sekolah" class="sambutan-image">
+        <img src="<?php echo !empty($foto_situs['kepsek']->foto) ? base_url($foto_situs['kepsek']->foto) : 'https://placehold.co/600x750/1e3a5f/ffffff?text=Foto+Kepala+Sekolah'; ?>" alt="Kepala Sekolah" class="sambutan-image">
       </div>
     </div>
   </div>
@@ -46,7 +65,7 @@
         <a href="<?php echo site_url('tentang'); ?>" class="btn btn-outline-dark" style="margin-top:var(--space-xs)">Pelajari Lebih Lanjut</a>
       </div>
       <div class="fade-in-up" style="direction:ltr">
-        <img src="https://placehold.co/600x500/1e3a5f/ffffff?text=Kegiatan+Sekolah" alt="Kegiatan Sekolah" style="width:100%;aspect-ratio:6/5;object-fit:cover">
+        <img src="<?php echo !empty($foto_situs['kegiatan']->foto) ? base_url($foto_situs['kegiatan']->foto) : 'https://placehold.co/600x500/1e3a5f/ffffff?text=Kegiatan+Sekolah'; ?>" alt="Kegiatan Sekolah" style="width:100%;aspect-ratio:6/5;object-fit:cover">
       </div>
     </div>
   </div>

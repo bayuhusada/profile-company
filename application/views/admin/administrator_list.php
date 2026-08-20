@@ -15,7 +15,7 @@
     <div class="card-body">
       <table class="table table-bordered">
         <thead>
-          <tr><th>Nama</th><th>Username</th><th>Bergabung</th><th>Aksi</th></tr>
+          <tr><th>Nama</th><th>Username</th><th>Role</th><th>Bergabung</th><th>Aksi</th></tr>
         </thead>
         <tbody>
           <?php foreach ($admin as $a): ?>
@@ -32,6 +32,13 @@
                 </div>
               </td>
               <td><?php echo $a->username; ?></td>
+              <td>
+                <?php if ($a->role == 'kepsek'): ?>
+                  <span class="badge bg-label-warning">Kepala Sekolah</span>
+                <?php else: ?>
+                  <span class="badge bg-label-primary">Administrator</span>
+                <?php endif; ?>
+              </td>
               <td><?php echo $a->created_at ? date('d/m/Y', strtotime($a->created_at)) : '-'; ?></td>
               <td>
                 <a href="<?php echo site_url('admin_administrator/edit/' . $a->id); ?>" class="btn btn-sm btn-outline-primary">Edit</a>

@@ -6,7 +6,7 @@ class Admin_administrator extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
-    if (!$this->session->userdata('logged_in')) redirect('auth/login');
+    if (!$this->session->userdata('logged_in') || $this->session->userdata('admin_role') !== 'admin') redirect('auth/login');
     $this->load->model('admin_model');
     $this->load->library('form_validation');
   }
@@ -38,6 +38,7 @@ class Admin_administrator extends CI_Controller {
         $insert = [
           'nama' => $this->input->post('nama'),
           'username' => $this->input->post('username'),
+          'role' => $this->input->post('role') ?: 'admin',
           'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
         ];
 
@@ -78,6 +79,7 @@ class Admin_administrator extends CI_Controller {
       if ($this->form_validation->run()) {
         $update = [
           'nama' => $this->input->post('nama'),
+          'role' => $this->input->post('role') ?: 'admin',
         ];
 
         if ($this->input->post('password')) {
