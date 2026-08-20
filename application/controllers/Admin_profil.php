@@ -35,12 +35,12 @@ class Admin_profil extends CI_Controller {
       $config['max_size'] = 5120;
       $this->load->library('upload', $config);
 
-      if ($_FILES['logo']['name']) {
+      if (!empty($_FILES['logo']['name'])) {
         if ($this->upload->do_upload('logo')) {
           $insert['logo'] = 'assets/uploads/' . $this->upload->data('file_name');
         }
       }
-      if ($_FILES['favicon']['name']) {
+      if (!empty($_FILES['favicon']['name'])) {
         if ($this->upload->do_upload('favicon')) {
           $insert['favicon'] = 'assets/uploads/' . $this->upload->data('file_name');
         }
@@ -56,5 +56,18 @@ class Admin_profil extends CI_Controller {
     $this->load->view('admin/profil_form', $data);
     $this->load->view('template/footers');
     $this->load->view('template/js');
+  }
+
+  public function hapus_gambar($jenis)
+  {
+    if (!in_array($jenis, ['logo', 'favicon'])) show_404();
+    $profil = $this->profil_model->get();
+    $path = $profil->{$jenis} ?? '';
+    if ($path && is_file(FCPATH . $path)) {
+      unlink(FCPATH . $path);
+    }
+    $this->profil_model->update([$jenis => null]);
+    $this->session->set_flashdata('success', ucfirst($jenis) . ' berhasil dihapus.');
+    redirect('admin_profil');
   }
 }

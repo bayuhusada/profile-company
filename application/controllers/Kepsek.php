@@ -111,6 +111,18 @@ class Kepsek extends CI_Controller {
     $this->render('kepsek/data_diri', $data);
   }
 
+  public function hapus_ttd()
+  {
+    $kepsek = $this->get_kepsek();
+    if (!$kepsek) show_404();
+    if (!empty($kepsek->ttd) && is_file(FCPATH . $kepsek->ttd)) {
+      unlink(FCPATH . $kepsek->ttd);
+    }
+    $this->admin_model->update($kepsek->id, ['ttd' => null]);
+    $this->session->set_flashdata('success', 'Tanda tangan berhasil dihapus.');
+    redirect('kepsek/data_diri');
+  }
+
   public function export_pdf($jenis)
   {
     if (!isset($this->data_modules[$jenis])) show_404();

@@ -39,6 +39,7 @@
               <?php if (!empty($row->ttd)): ?>
                 <div class="mb-2">
                   <img src="<?php echo base_url($row->ttd); ?>" style="max-height:80px;background:#fff;border:1px solid #ddd;padding:4px">
+                  <a href="<?php echo site_url('kepsek/hapus_ttd'); ?>" class="btn btn-sm btn-outline-danger ms-2 align-top" onclick="return confirm('Hapus tanda tangan?')">Hapus</a>
                 </div>
               <?php endif; ?>
               <input type="file" name="ttd" class="form-control" accept="image/*">

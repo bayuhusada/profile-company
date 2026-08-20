@@ -66,14 +66,20 @@
             <div class="mb-3">
               <label class="form-label">Logo</label>
               <?php if (!empty($profil->logo)): ?>
-                <div class="mb-2"><img src="<?php echo base_url($profil->logo); ?>" style="max-height:80px"></div>
+                <div class="mb-2">
+                  <img src="<?php echo base_url($profil->logo); ?>" style="max-height:80px">
+                  <a href="<?php echo site_url('admin_profil/hapus_gambar/logo'); ?>" class="btn btn-sm btn-outline-danger ms-2 align-top" onclick="return confirm('Hapus logo?')">Hapus</a>
+                </div>
               <?php endif; ?>
               <input type="file" name="logo" class="form-control">
             </div>
             <div class="mb-3">
               <label class="form-label">Favicon</label>
               <?php if (!empty($profil->favicon)): ?>
-                <div class="mb-2"><img src="<?php echo base_url($profil->favicon); ?>" style="max-height:32px"></div>
+                <div class="mb-2">
+                  <img src="<?php echo base_url($profil->favicon); ?>" style="max-height:32px">
+                  <a href="<?php echo site_url('admin_profil/hapus_gambar/favicon'); ?>" class="btn btn-sm btn-outline-danger ms-2 align-top" onclick="return confirm('Hapus favicon?')">Hapus</a>
+                </div>
               <?php endif; ?>
               <input type="file" name="favicon" class="form-control">
             </div>
