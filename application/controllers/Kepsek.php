@@ -135,7 +135,9 @@ class Kepsek extends CI_Controller {
     $kepsek = $this->get_kepsek();
 
     $this->load->model('profil_model');
+    $this->load->model('kontak_model');
     $profil = $this->profil_model->get();
+    $kontak = $this->kontak_model->get();
 
     $html = $this->load->view('kepsek/pdf_template', [
       'jenis' => $jenis,
@@ -143,6 +145,7 @@ class Kepsek extends CI_Controller {
       'rows' => $rows,
       'kepsek' => $kepsek,
       'profil' => $profil,
+      'kontak' => $kontak,
       'tgl_export' => date('d F Y'),
     ], true);
 

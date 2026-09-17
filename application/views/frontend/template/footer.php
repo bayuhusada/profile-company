@@ -5,8 +5,8 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="<?php echo base_url('assets/sneat/assets/img/favicon/favicon.ico'); ?>" alt="SMP Negeri Sadi">
-          <p>SMP Negeri Sadi berkomitmen mencetak generasi berprestasi, berkarakter, dan siap menghadapi masa depan.</p>
+          <img src="<?php echo base_url(!empty($site_profil->logo) ? $site_profil->logo : 'assets/frontend/img/logo-smp.png'); ?>" alt="<?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?>">
+          <p><?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?> berkomitmen mencetak generasi berprestasi, berkarakter, dan siap menghadapi masa depan.</p>
         </div>
         <div>
           <h4>Menu</h4>
@@ -36,14 +36,14 @@
         </div>
         <div>
           <h4>Kontak</h4>
-          <p>Jl. Pendidikan No. 1, Sadi</p>
-          <p>Telp: (021) 1234-5678</p>
-          <p>Email: info@smpnegerisadi.sch.id</p>
-          <p>WhatsApp: +62 812-3456-7890</p>
+          <p><?php echo nl2br($site_kontak->alamat ?? 'Jl. Pendidikan No. 1, Sadi'); ?></p>
+          <p>Telp: <?php echo $site_kontak->telepon ?? '(021) 1234-5678'; ?></p>
+          <p>Email: <?php echo $site_kontak->email ?? 'info@smpnegerisadi.sch.id'; ?></p>
+          <p>WhatsApp: <?php echo $site_kontak->whatsapp ?? '+62 812-3456-7890'; ?></p>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>&copy; <?php echo date('Y'); ?> SMP Negeri Sadi. All rights reserved.</span>
+        <span>&copy; <?php echo date('Y'); ?> <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?><?php echo $site_pengaturan->copyright ? ' | ' . $site_pengaturan->copyright : ''; ?>. All rights reserved.</span>
         <div class="footer-social">
           <a href="#" aria-label="Facebook">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>

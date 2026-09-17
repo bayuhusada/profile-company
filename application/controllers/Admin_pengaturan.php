@@ -21,7 +21,6 @@ class Admin_pengaturan extends CI_Controller {
 
     if ($this->input->method() === 'post') {
       $update = [
-        'nama_website' => $this->input->post('nama_website'),
         'meta_description' => $this->input->post('meta_description'),
         'meta_keyword' => $this->input->post('meta_keyword'),
         'copyright' => $this->input->post('copyright'),

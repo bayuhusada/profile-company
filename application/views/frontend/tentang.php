@@ -18,8 +18,8 @@
       <div class="tab-panel active" data-panel="profil">
         <div style="max-width:var(--content-narrow)">
           <h2 style="margin-bottom:var(--space-xs)">Profil <?php echo $profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></h2>
-          <p><?php echo nl2br($profil->alamat ?? 'SMP Negeri Sadi adalah lembaga pendidikan menengah pertama negeri yang berkomitmen untuk mencetak generasi muda yang berprestasi, berkarakter, dan berakhlak mulia. Berlokasi di Jl. Pendidikan No. 1, Sadi, sekolah ini telah menjadi pilihan utama masyarakat dalam mendidik putra-putri mereka.'); ?></p>
-          <p><?php echo $profil->email ? 'Email: ' . $profil->email : ''; ?></p>
+<p><?php echo nl2br($site_kontak->alamat ?? 'SMP Negeri Sadi adalah lembaga pendidikan menengah pertama negeri yang berkomitmen untuk mencetak generasi muda yang berprestasi, berkarakter, dan berakhlak mulia. Berlokasi di Jl. Pendidikan No. 1, Sadi, sekolah ini telah menjadi pilihan utama masyarakat dalam mendidik putra-putri mereka.'); ?></p>
+<p><?php echo $site_kontak->email ? 'Email: ' . $site_kontak->email : ''; ?></p>
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-md);margin-top:var(--space-md)">
             <div style="padding:var(--space-md);background:var(--primary-light)">
               <h4 style="font-weight:600;color:var(--primary);margin-bottom:var(--space-xxs)">Visi</h4>

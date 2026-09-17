@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo isset($title) ? $title . ' | ' : ''; ?>SMP Negeri Sadi</title>
-  <meta name="description" content="SMP Negeri Sadi — Mencetak Generasi Berprestasi. Website resmi sekolah dengan informasi profil, berita, prestasi, PPDB, dan galeri kegiatan.">
+  <title><?php echo isset($title) ? $title . ' | ' : ''; ?><?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></title>
+  <meta name="description" content="<?php echo htmlspecialchars($site_pengaturan->meta_description ?? 'SMP Negeri Sadi - Mencetak Generasi Berprestasi. Website resmi sekolah dengan informasi profil, berita, prestasi, PPDB, dan galeri kegiatan.'); ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo base_url('assets/frontend/css/style.css?v=2'); ?>">
-  <link rel="shortcut icon" href="<?php echo base_url('assets/frontend/img/logo-smp.png'); ?>" type="image/png">
+  <link rel="shortcut icon" href="<?php echo base_url(!empty($site_profil->favicon) ? $site_profil->favicon : 'assets/frontend/img/logo-smp.png'); ?>" type="image/png">
 </head>
 <body>
 
@@ -17,8 +17,8 @@
   <nav class="nav">
     <div class="container">
       <a href="<?php echo site_url(); ?>" class="nav-logo">
-        <img src="<?php echo base_url('assets/frontend/img/logo-smp.png'); ?>" alt="SMP Negeri Sadi">
-        <span>SMP<br>Negeri Sadi</span>
+        <img src="<?php echo base_url(!empty($site_profil->logo) ? $site_profil->logo : 'assets/frontend/img/logo-smp.png'); ?>" alt="<?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?>">
+        <span><?php echo $site_profil->nama_sekolah ?? 'SMP<br>Negeri Sadi'; ?></span>
       </a>
 
       <ul class="nav-list">

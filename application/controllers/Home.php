@@ -3,6 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
+  public function __construct()
+  {
+    parent::__construct();
+    $this->load->model('profil_model');
+    $this->load->model('kontak_model');
+    $this->load->model('pengaturan_model');
+    $this->load->vars([
+      'site_profil' => $this->profil_model->get(),
+      'site_kontak' => $this->kontak_model->get(),
+      'site_pengaturan' => $this->pengaturan_model->get(),
+    ]);
+  }
+
   public function index()
   {
     $this->load->model('berita_model');

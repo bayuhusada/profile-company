@@ -41,7 +41,7 @@
     <div class="sambutan-grid">
       <div class="fade-in">
         <span class="section-label">Sambutan</span>
-        <h2>Selamat Datang di SMP Negeri Sadi</h2>
+        <h2>Selamat Datang di <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></h2>
         <p><?php echo nl2br($profil->sambutan ?? 'Selamat datang di SMP Negeri Sadi.'); ?></p>
         <p style="margin-bottom:2px;font-weight:600;color:var(--ink)">Kepala Sekolah,</p>
         <p style="font-weight:500;color:var(--ink)"><?php echo $profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></p>
@@ -60,7 +60,7 @@
     <div class="sambutan-grid" style="direction:rtl">
       <div class="fade-in" style="direction:ltr">
         <span class="section-label">Profil</span>
-        <h2>Tentang SMP Negeri Sadi</h2>
+        <h2>Tentang <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></h2>
         <p><?php echo character_limiter(strip_tags($profil->visi ?? ''), 300); ?></p>
         <a href="<?php echo site_url('tentang'); ?>" class="btn btn-outline-dark" style="margin-top:var(--space-xs)">Pelajari Lebih Lanjut</a>
       </div>
@@ -101,7 +101,7 @@
     <div class="section-header fade-in">
       <span class="section-label">Berita</span>
       <h2>Berita Terbaru</h2>
-      <p>Ikuti perkembangan kegiatan dan informasi terbaru dari SMP Negeri Sadi</p>
+      <p>Ikuti perkembangan kegiatan dan informasi terbaru dari <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></p>
     </div>
     <div class="berita-grid">
       <?php if ($berita): foreach ($berita as $i => $b): ?>
@@ -164,7 +164,7 @@
     <div class="section-header fade-in">
       <span class="section-label">Galeri</span>
       <h2>Dokumentasi Kegiatan</h2>
-      <p>Momen-momen berharga dalam perjalanan pendidikan di SMP Negeri Sadi</p>
+      <p>Momen-momen berharga dalam perjalanan pendidikan di <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></p>
     </div>
     <?php if ($galeri): ?>
     <div class="galeri-grid" style="margin-bottom:var(--space-md)">
@@ -204,7 +204,7 @@
     <div class="fade-in">
       <span class="section-label" style="color:var(--accent-gold)">PPDB <?php echo date('Y'); ?></span>
       <h2>Penerimaan Peserta Didik Baru</h2>
-      <p>Daftarkan putra-putri Anda untuk bergabung menjadi keluarga besar SMP Negeri Sadi</p>
+      <p>Daftarkan putra-putri Anda untuk bergabung menjadi keluarga besar <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></p>
       <a href="<?php echo site_url('ppdb'); ?>" class="btn btn-primary" style="background:var(--canvas);color:var(--primary)">Informasi & Pendaftaran</a>
     </div>
   </div>

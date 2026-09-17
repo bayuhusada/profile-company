@@ -76,8 +76,8 @@ $logo = !empty($profil->logo) ? base_url($profil->logo) : base_url('assets/front
         <td class="logo-cell"><img src="<?php echo $logo; ?>" class="logo"></td>
         <td class="title">
           <h1><?php echo strtoupper($profil->nama_sekolah ?? 'SMP NEGERI SADI'); ?></h1>
-          <p><?php echo $profil->alamat ?? 'Jl. Pendidikan No. 1, Sadi'; ?></p>
-          <p>Email: <?php echo $profil->email ?: '-'; ?> &nbsp;|&nbsp; Telp: <?php echo $profil->telepon ?: '-'; ?></p>
+          <p><?php echo nl2br($kontak->alamat ?? $profil->alamat ?? 'Jl. Pendidikan No. 1, Sadi'); ?></p>
+          <p>Email: <?php echo $kontak->email ?: $profil->email ?: '-'; ?> &nbsp;|&nbsp; Telp: <?php echo $kontak->telepon ?: $profil->telepon ?: '-'; ?></p>
         </td>
       </tr>
     </table>

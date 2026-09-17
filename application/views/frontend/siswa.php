@@ -9,7 +9,7 @@
   <div class="container">
     <div class="section-header fade-in">
       <span class="section-label">Data Siswa</span>
-      <h2>Siswa SMP Negeri Sadi</h2>
+      <h2>Siswa <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></h2>
       <p>Data lengkap siswa aktif berdasarkan kelas</p>
     </div>
 

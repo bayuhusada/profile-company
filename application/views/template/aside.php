@@ -5,7 +5,7 @@
           <?php $is_kepsek = $this->session->userdata('admin_role') === 'kepsek'; ?>
           <div class="app-brand demo">
             <a href="<?php echo site_url($is_kepsek ? 'kepsek' : 'dashboard'); ?>" class="app-brand-link">
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">SMP Negeri Sadi</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2"><?php echo isset($nama_sekolah) ? $nama_sekolah : 'SMP Negeri Sadi'; ?></span>
             </a>
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -220,7 +220,7 @@
             </div>
 
             <div class="position-absolute start-50 translate-middle-x">
-              <a href="<?php echo site_url($is_kepsek ? 'kepsek' : 'dashboard'); ?>" class="navbar-brand mb-0 h1 text-primary fw-bold">SMP Negeri Sadi</a>
+              <a href="<?php echo site_url($is_kepsek ? 'kepsek' : 'dashboard'); ?>" class="navbar-brand mb-0 h1 text-primary fw-bold"><?php echo isset($nama_sekolah) ? $nama_sekolah : 'SMP Negeri Sadi'; ?></a>
             </div>
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">

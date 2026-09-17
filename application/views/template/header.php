@@ -14,12 +14,22 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title><?php echo isset($title) ? $title . ' | ' : ''; ?>SMP Negeri Sadi</title>
+    <?php
+    $CI =& get_instance();
+    if (empty($CI->profil_model)) {
+      $CI->load->model('profil_model');
+    }
+    $admin_profil = $CI->profil_model->get();
+    $nama_sekolah = $admin_profil->nama_sekolah ?? 'SMP Negeri Sadi';
+    $CI->load->vars(['nama_sekolah' => $nama_sekolah]);
+    ?>
+
+    <title><?php echo isset($title) ? $title . ' | ' : ''; ?><?php echo $nama_sekolah; ?></title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/frontend/img/logo-smp.png'); ?>" />
+    <link rel="icon" type="image/png" href="<?php echo base_url(!empty($admin_profil->favicon) ? $admin_profil->favicon : 'assets/frontend/img/logo-smp.png'); ?>" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

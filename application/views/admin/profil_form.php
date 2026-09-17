@@ -16,22 +16,9 @@
               <input type="text" name="nama_sekolah" class="form-control" value="<?php echo set_value('nama_sekolah', $profil->nama_sekolah ?? ''); ?>">
             </div>
             <div class="mb-3">
-              <label class="form-label">Alamat</label>
-              <textarea name="alamat" class="form-control" rows="3"><?php echo set_value('alamat', $profil->alamat ?? ''); ?></textarea>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" value="<?php echo set_value('email', $profil->email ?? ''); ?>">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Telepon</label>
-                <input type="text" name="telepon" class="form-control" value="<?php echo set_value('telepon', $profil->telepon ?? ''); ?>">
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Google Maps Embed URL</label>
-              <input type="text" name="maps" class="form-control" value="<?php echo set_value('maps', $profil->maps ?? ''); ?>">
+              <label class="form-label">Nama Website</label>
+              <input type="text" class="form-control" value="<?php echo set_value('nama_sekolah', $profil->nama_sekolah ?? ''); ?>" disabled>
+              <div class="form-text">Nama website mengikuti Nama Sekolah di atas.</div>
             </div>
           </div>
         </div>

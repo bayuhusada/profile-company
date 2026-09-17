@@ -20,10 +20,6 @@ class Admin_profil extends CI_Controller {
     if ($this->input->method() === 'post') {
       $insert = [
         'nama_sekolah' => $this->input->post('nama_sekolah'),
-        'alamat' => $this->input->post('alamat'),
-        'email' => $this->input->post('email'),
-        'telepon' => $this->input->post('telepon'),
-        'maps' => $this->input->post('maps'),
         'visi' => $this->input->post('visi'),
         'misi' => $this->input->post('misi'),
         'sejarah' => $this->input->post('sejarah'),

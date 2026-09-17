@@ -10,7 +10,7 @@
     <div class="section-header fade-in">
       <span class="section-label">Kurikulum</span>
       <h2>Mata Pelajaran</h2>
-      <p>Daftar mata pelajaran yang diajarkan di SMP Negeri Sadi</p>
+      <p>Daftar mata pelajaran yang diajarkan di <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></p>
     </div>
 
     <?php if ($mata_pelajaran): ?>

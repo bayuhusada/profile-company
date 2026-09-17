@@ -11,7 +11,7 @@
       <div class="section-header fade-in" style="text-align:left">
         <span class="section-label">Pendaftaran</span>
         <h2><?php echo $ppdb->judul ?? 'Penerimaan Peserta Didik Baru'; ?></h2>
-        <p>Informasi lengkap mengenai pendaftaran siswa baru di SMP Negeri Sadi tahun ajaran <?php echo date('Y') . '/' . (date('Y') + 1); ?></p>
+        <p>Informasi lengkap mengenai pendaftaran siswa baru di <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?> tahun ajaran <?php echo date('Y') . '/' . (date('Y') + 1); ?></p>
       </div>
 
       <?php if (!empty($ppdb->isi)): ?>

@@ -9,10 +9,6 @@
     <div class="card">
       <div class="card-body">
         <div class="mb-3">
-          <label class="form-label">Nama Website</label>
-          <input type="text" name="nama_website" class="form-control" value="<?php echo set_value('nama_website', $setting->nama_website ?? ''); ?>">
-        </div>
-        <div class="mb-3">
           <label class="form-label">Meta Description</label>
           <textarea name="meta_description" class="form-control" rows="3"><?php echo set_value('meta_description', $setting->meta_description ?? ''); ?></textarea>
         </div>

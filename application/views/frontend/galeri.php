@@ -10,7 +10,7 @@
     <div class="section-header fade-in">
       <span class="section-label">Dokumentasi</span>
       <h2>Galeri Kegiatan</h2>
-      <p>Dokumentasi momen-momen berharga di SMP Negeri Sadi</p>
+      <p>Dokumentasi momen-momen berharga di <?php echo $site_profil->nama_sekolah ?? 'SMP Negeri Sadi'; ?></p>
     </div>
 
     <div class="galeri-grid">
